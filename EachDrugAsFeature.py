@@ -10,7 +10,7 @@ import numpy as np;
 from functools import reduce
 
 ## Prepare the data
-df = pa.read_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/merged_datasetRenamed_withoutBlanks.csv');
+df = pa.read_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/src/data/merged_datasetRenamed_withoutBlanks.csv');
 
 ## Get the list of different drugs
 list_drug1 = df.drug1.unique();
@@ -69,7 +69,7 @@ df2.leukocytes = (df2.leukocytes - meanleukocytes)/stdleukocytes;
 df2.trgld = (df2.trgld - meantrgld)/stdtrgld;
 df2.tflr = (df2.tflr - meantflr)/stdtflr;
 
-df2.to_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/normalizedDatasetWithoutBlanks.csv');
+df2.to_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/src/data/normalizedDatasetWithoutBlanks.csv', index = False);
 
 ## Creation of new variables
 df_temp = pa.DataFrame(columns = ["patient_id1", "nbDrugs"]);
@@ -100,5 +100,6 @@ for e in range(957):
 ## Addition of new variables to the initial data frame
 df3 = df2.join(df_temp, on = df2.patient_id == df_temp.patient_id1).drop('patient_id1', 1);
 
-    
+df3.to_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/src/data/dataset2.0.csv', index = False);
+
 
