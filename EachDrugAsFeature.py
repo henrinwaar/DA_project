@@ -98,6 +98,7 @@ for e in range(957):
     df_temp = df_temp.append({'patient_id1': e+1, 'nbDrugs': nbDrug}, ignore_index=True);
     
 ## Addition of new variables to the initial data frame
-    
+df3 = df2.join(df_temp, on = df2.patient_id == df_temp.patient_id1).drop('patient_id1', 1);
+
     
 
