@@ -69,6 +69,15 @@ df2.leukocytes = (df2.leukocytes - meanleukocytes)/stdleukocytes;
 df2.trgld = (df2.trgld - meantrgld)/stdtrgld;
 df2.tflr = (df2.tflr - meantflr)/stdtflr;
 
+
+## Removing correlated features from physician tests
+df2 = df2.drop('kidney_absortion_test', 1)
+df2 = df2.drop('kidney_enzyme_test', 1)
+df2 = df2.drop('kidney_suffering_test', 1)
+df2 = df2.drop('kidney_genetic_test(gene_a3hc)', 1)
+df2 = df2.drop('kidney_genetic_test(gene_6a3cp)', 1)
+
+
 df2.to_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/src/data/normalizedDatasetWithoutBlanks.csv', index = False);
 
 ## Creation of new variables
@@ -98,7 +107,7 @@ for e in range(957):
     df_temp = df_temp.append({'patient_id1': e+1, 'nbDrugs': nbDrug}, ignore_index=True);
     
 ## Addition of new variables to the initial data frame
-df3 = df2.join(df_temp, on = df2.patient_id == df_temp.patient_id1).drop('patient_id1', 1);
+df3 = df2.join(df_temp, on = 'patient_id').drop('patient_id1',1);
 
 df3.to_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/src/data/dataset2.0.csv', index = False);
 
