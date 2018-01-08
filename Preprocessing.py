@@ -4,7 +4,7 @@ Created on Tue Dec 12 13:37:50 2017
 
 @author: Henri DESQUESSES & Thomas JASSEM
 """
-
+import math as m;
 import pandas as pa;
 import numpy as np;
 from functools import reduce;
@@ -308,3 +308,23 @@ df2.tflr = (df2.tflr - meantflr)/stdtflr;
 
 ##Write the final data set in a csv file
 df2.to_csv('C:/Users/Max/Documents/UPM/Data_Analysis/Projet/src/data/dataset2.0.csv', index = False);
+
+# Caracterization of the dataset 
+
+def calcShannonEnt(dataSet):
+    numEntries = len(dataSet)
+    labelCounts = {}
+    for featVec in dataSet: #the the number of unique elements and their occurance
+        currentLabel = featVec[len(featVec)-4]
+        if currentLabel not in labelCounts.keys(): labelCounts[currentLabel] = 0
+        labelCounts[currentLabel] += 1
+    shannonEnt = 0.0
+    for key in labelCounts:
+        prob = float(labelCounts[key])/numEntries
+        shannonEnt -= prob * m.log(prob,2) #log base 2
+    return shannonEnt
+
+entropy = calcShannonEnt(df2);
+
+description = df2.describe();
+
